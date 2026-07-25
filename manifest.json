@@ -1,18 +1,16 @@
 {
-  "background_color": "#ffffff",
-  "dir": "auto",
-  "display": "standalone",
   "name": "Quiz Wɛ",
-  "orientation": "portrait",
-  "scope": "/",
   "short_name": "Quiz Wɛ",
-  "start_url": "/",
-  "theme_color": "#008000",
   "description": "Application de quiz pour apprendre le vocabulaire Wɛ",
-  "id": "Quiz Wɛ",
   "lang": "fr",
-  "prefer_related_applications": true,
-  "categories": [
-    "education"
-  ]
+  "dir": "auto",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#ffffff",
+  "theme_color": "#008000",
+  "prefer_related_applications": false,
+  "categories": ["education"]
 }
