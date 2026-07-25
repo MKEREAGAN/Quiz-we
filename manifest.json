@@ -1,0 +1,13 @@
+{
+  "background_color": "#ffffff",
+  "dir": "ltr",
+  "display": "standalone",
+  "name": "mkereagan.github",
+  "orientation": "any",
+  "scope": "/",
+  "short_name": "mkereagan.github",
+  "start_url": "/",
+  "theme_color": "#445500",
+  "description": "Quiz pour apprendre la langue we",
+  "id": "Quiz Wɛ"
+}
