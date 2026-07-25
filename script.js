@@ -3,6 +3,7 @@ const quiz = document.getElementById("quiz");
 const commencer = document.getElementById("commencer");
 const themeSelect = document.getElementById("theme");
 
+alert("script.js chargé");
 console.log("script.js chargé");
 console.log(mots);
 
