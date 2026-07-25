@@ -17,9 +17,9 @@
 
         <h2>🎮 Quiz Wɛ</h2>
 
-<p>Apprends le vocabulaire Wɛ en jouant !</p>
+        <p>Apprends le vocabulaire Wɛ en jouant !</p>
 
-<h3>Choisis un thème</h3>
+        <h3>Choisis un thème</h3>
 
         <select id="theme">
             <option value="Tous">Tous les thèmes</option>
@@ -42,33 +42,36 @@
 
     <div id="quiz" style="display:none;">
 
-    <div id="barre-container">
-        <div id="barre"></div>
+        <div id="barre-container">
+            <div id="barre"></div>
+        </div>
+
+        <p id="progression"></p>
+
+        <button id="parler">🔊 Prononcer</button>
+
+        <h2 id="question"></h2>
+
+        <p id="message"></p>
+
+        <button class="reponse"></button>
+        <button class="reponse"></button>
+        <button class="reponse"></button>
+        <button class="reponse"></button>
+
     </div>
 
-    <p id="progression"></p>
+    <p id="score"></p>
 
-    <button id="parler">🔊 Prononcer</button>
+    <script src="mots.js"></script>
+    script.js"></script>
 
-    <h2 id="question"></h2>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js');
+        }
+    </script>
 
-    <p id="message"></p>
-
-    <button class="reponse"></button>
-    <button class="reponse"></button>
-    <button class="reponse"></button>
-    <button class="reponse"></button>
-
-</div>
-
-   <p id="score"></p>
-
-<script src="mots.js"></script>
-<script src="script.js"></script>
-<script>
-  if (typeof navigator.serviceWorker !== 'undefined') {
-    navigator.serviceWorker.register('service-worker.js');
-  }
-</script>
 </body>
+
 </html>
