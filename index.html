@@ -15,13 +15,14 @@
 
     <div id="accueil">
 
-        <h2>🎮 Quiz Wɛ</h2>
+        <h1>🎮 Quiz Wɛ</h1>
 
         <p>Apprends le vocabulaire Wɛ en jouant !</p>
 
-        <h3>Choisis un thème</h3>
+        <h2>Choisis un thème</h2>
 
-        <select id="theme">
+        <label for="theme">Sélectionne un thème :</label>
+        <select id="theme" aria-label="Sélection du thème">
             <option value="Tous">Tous les thèmes</option>
             <option value="Animaux">Animaux</option>
             <option value="Famille">Famille</option>
@@ -43,16 +44,16 @@
     <div id="quiz" style="display:none;">
 
         <div id="barre-container">
-            <div id="barre"></div>
+            <div id="barre" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"></div>
         </div>
 
-        <p id="progression"></p>
+        <p id="progression" aria-live="polite" aria-atomic="true"></p>
 
-        <button id="parler">🔊 Prononcer</button>
+        <button id="parler" aria-label="Écouter la prononciation">🔊 Prononcer</button>
 
         <h2 id="question"></h2>
 
-        <p id="message"></p>
+        <p id="message" aria-live="polite"></p>
 
         <button class="reponse"></button>
         <button class="reponse"></button>
@@ -61,16 +62,17 @@
 
     </div>
 
-    <p id="score"></p>
+    <div id="score" role="status" aria-live="polite" aria-atomic="true"></div>
 
     <script src="mots.js"></script>
-<script src="script.js"></script>
+    <script src="script.js"></script>
 
-<script>
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js');
-}
-</script>
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js')
+                .catch(err => console.warn('Service Worker registration failed:', err));
+        }
+    </script>
 
 </body>
 </html>
