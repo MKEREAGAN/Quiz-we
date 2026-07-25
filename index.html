@@ -63,6 +63,10 @@
 
 <script src="mots.js"></script>
 <script src="script.js"></script>
-
+<script>
+  if (typeof navigator.serviceWorker !== 'undefined') {
+    navigator.serviceWorker.register('service-worker.js');
+  }
+</script>
 </body>
 </html>
