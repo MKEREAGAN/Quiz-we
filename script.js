@@ -187,9 +187,7 @@ parler.addEventListener("click", function () {
 
     if (audioCourant) {
 
-        let audio =
-            new Audio(audioCourant);
-
+        let audio = new Audio(audioCourant);
         audio.play();
 
     } else {
