@@ -11,6 +11,7 @@ let index = 0;
 let questions = [];
 let motCourant = "";
 let audioCourant = "";
+
 function melanger(tableau) {
     return tableau.sort(() => Math.random() - 0.5);
 }
@@ -22,12 +23,15 @@ const message = document.getElementById("message");
 const barre = document.getElementById("barre");
 const progression = document.getElementById("progression");
 const parler = document.getElementById("parler");
+
 function afficherQuestion() {
 
     let q = questions[index];
-motCourant = q.motWe;
-audioCourant = q.audio; 
-let pourcentage =
+
+    motCourant = q.motWe;
+    audioCourant = q.audio;
+
+    let pourcentage =
         ((index + 1) / questions.length) * 100;
 
     barre.style.width = pourcentage + "%";
@@ -39,8 +43,13 @@ let pourcentage =
         questions.length;
 
     question.textContent =
-        "Question " + (index + 1) + "/" + questions.length +
-        " : " + q.question;
+        "Question " +
+        (index + 1) +
+        "/" +
+        questions.length +
+        " : " +
+        q.question;
+
     boutons.forEach((btn, i) => {
 
         btn.textContent = q.choix[i];
@@ -81,6 +90,7 @@ let pourcentage =
         };
 
     });
+
 }
 
 function afficherResultat() {
@@ -109,6 +119,7 @@ function afficherResultat() {
     } else {
 
         messageFinal = "🌱 Débutant";
+
     }
 
     let historique =
@@ -193,12 +204,12 @@ commencer.onclick = function () {
         choix = melanger(choix);
 
         questions.push({
-    motWe: mot.we,
-    audio: mot.audio,
-    question: "Que signifie " + mot.we + " ?",
-    choix: choix,
-    bonne: choix.indexOf(mot.fr)
-});
+            motWe: mot.we,
+            audio: mot.audio,
+            question: "Que signifie " + mot.we + " ?",
+            choix: choix,
+            bonne: choix.indexOf(mot.fr)
+        });
 
     });
 
@@ -217,14 +228,15 @@ commencer.onclick = function () {
     afficherQuestion();
 
 };
+
 parler.onclick = function () {
 
-    if(audioCourant){
+    if (audioCourant) {
 
         let audio = new Audio(audioCourant);
         audio.play();
 
-    }else{
+    } else {
 
         let voix = new SpeechSynthesisUtterance(motCourant);
 
@@ -232,19 +244,7 @@ parler.onclick = function () {
         voix.rate = 0.8;
 
         speechSynthesis.speak(voix);
+
     }
+
 };
-
-
-if ("serviceWorker" in navigator) {
-  window.addEventListener("load", () => {
-    navigator.serviceWorker
-      .register("./service-worker.js")
-      .then(() => {
-        console.log("Service Worker enregistré");
-      })
-      .catch((err) => {
-        console.log("Erreur :", err);
-      });
-  });
-}
