@@ -3,7 +3,7 @@ const quiz = document.getElementById("quiz");
 const commencer = document.getElementById("commencer");
 const themeSelect = document.getElementById("theme");
 
-alert("script.js chargé");
+// Supprimé l'alert inutile
 console.log("script.js chargé");
 console.log(mots);
 
@@ -14,7 +14,12 @@ let motCourant = "";
 let audioCourant = "";
 
 function melanger(tableau) {
-    return tableau.sort(() => Math.random() - 0.5);
+    // Meilleur algorithme de mélange (Fisher-Yates)
+    for (let i = tableau.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [tableau[i], tableau[j]] = [tableau[j], tableau[i]];
+    }
+    return tableau;
 }
 
 const question = document.getElementById("question");
@@ -25,7 +30,29 @@ const barre = document.getElementById("barre");
 const progression = document.getElementById("progression");
 const parler = document.getElementById("parler");
 
+// Ajouter l'événement pour commencer le quiz
+commencer.addEventListener("click", function() {
+    let themeChoisi = themeSelect.value;
+    
+    if (themeChoisi === "Tous") {
+        questions = melanger([...mots]);
+    } else {
+        questions = melanger(mots.filter(m => m.theme === themeChoisi));
+    }
+    
+    score = 0;
+    index = 0;
+    accueil.style.display = "none";
+    quiz.style.display = "block";
+    afficherQuestion();
+});
+
 function afficherQuestion() {
+    
+    if (!questions || questions.length === 0) {
+        message.textContent = "Aucune question disponible";
+        return;
+    }
 
     let q = questions[index];
 
@@ -54,6 +81,7 @@ function afficherQuestion() {
     boutons.forEach((btn, i) => {
 
         btn.textContent = q.choix[i];
+        btn.disabled = false;
 
         btn.onclick = function () {
 
@@ -67,7 +95,7 @@ function afficherQuestion() {
 
             } else {
 
-                message.textContent = "❌ Mauvaise réponse !";
+                message.textContent = "❌ Mauvaise réponse ! La bonne réponse était : " + q.choix[q.bonne];
                 message.style.color = "red";
 
             }
@@ -86,10 +114,31 @@ function afficherQuestion() {
 
                 boutons.forEach(b => b.disabled = false);
 
-            }, 1000);
+            }, 1500);
 
         };
 
     });
 
 }
+
+function afficherResultat() {
+    quiz.style.display = "none";
+    accueil.style.display = "block";
+    
+    let pourcentage = Math.round((score / questions.length) * 100);
+    
+    message.textContent = `Quiz terminé ! Score : ${score}/${questions.length} (${pourcentage}%)`;
+    message.style.color = "blue";
+    
+    index = 0;
+    score = 0;
+}
+
+// Ajouter événement pour le bouton parler
+parler.addEventListener("click", function() {
+    if (audioCourant) {
+        // Vous pouvez utiliser une API de synthèse vocale
+        console.log("Jouer l'audio : " + audioCourant);
+    }
+});
