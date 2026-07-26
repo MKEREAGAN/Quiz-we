@@ -8,6 +8,8 @@ const mots = [
     {we:"ˈˈGaʋn", fr:"Gobelet", theme:"Maison"},
     {we:"ˈGhwɛi", fr:"Argent", theme:"Maison"},
     {we:"-Baajhu", fr:"Couteau", theme:"Maison"},
+    {we:"Fenɛtri", fr:"Fenêtre", theme:"Maison"},
+    {we:"-Klu-", fr:"Porte", theme:"Maison"},
 
     {we:"Sʋn", fr:"Bras", theme:"Corps"},
     {we:"ˈˈKwli", fr:"Ventre", theme:"Corps"},
@@ -15,6 +17,10 @@ const mots = [
     {we:"ˈˈJhri", fr:"Yeux", theme:"Corps"},
     {we:"ˈMlan", fr:"Nez", theme:"Corps"},
     {we:"ˈˈMɩɩn", fr:"Cheveux", theme:"Corps"},
+    {we:"Sʋn", fr:"Main", theme:"Corps"},
+    {we:"Bhʋ", fr:"Pied", theme:"Corps"},
+    {we:"ˈKpʋ", fr:"Dos", theme:"Corps"},
+    {we:"-Blʋnˈ", fr:"Cou", theme:"Corps"},
 
     {we:"ˈˈBho", fr:"Père", theme:"Famille"},
     {we:"ˈDhou", fr:"Mère", theme:"Famille"},
@@ -22,6 +28,10 @@ const mots = [
     {we:"ˈˈJhudhee", fr:"Bébé", theme:"Famille"},
     {we:"ˈDhai", fr:"Ami", theme:"Famille"},
     {we:"Ɲʋndɩkman", fr:"Amour", theme:"Famille"},
+    {we:"ˈˈNan ɲmau-", fr:"Grand-père", theme:"Famille"},
+    {we:"ˈˈNan", fr:"Grand-mère", theme:"Famille"},
+    {we:"-Tɔntɔn", fr:"Oncle", theme:"Famille"},
+    {we:"-Tanti", fr:"Tante", theme:"Famille"},
 
     {we:"-Baa", fr:"Manioc", theme:"Nourriture"},
     {we:"Dhʋ", fr:"Miel", theme:"Nourriture"},
@@ -63,137 +73,43 @@ const mots = [
     {we:"Tu", fr:"Arbre", theme:"Nature"},
     {we:"ˈˈKao", fr:"Marigot", theme:"Nature"},
     {we:"ˈˈCɛ", fr:"Froid", theme:"Nature"},
+    {we:"ˈCʋ", fr:"Lune", theme:"Nature"},
+    {we:"ˈˈNin an ˈplɩn", fr:"Nuage", theme:"Nature"},
+    {we:"ˈˈNin", fr:"Pluie", theme:"Nature"},
 
     {we:"Ɲɔnsoa", fr:"Dieu", theme:"Spiritualité"},
     {we:"ˈMʋnan", fr:"Joie", theme:"Spiritualité"},
+    {we:"Dhɛgwlɩdeɛ-", fr:"Foi", theme:"Spiritualité"},
+    {we:"-Bhaeɛ-", fr:"Prière", theme:"Spiritualité"},
+    {we:"Ɲɔnsoa aˈ ˈˈgbu -klaaˈˈ", fr:"Temple", theme:"Spiritualité"},
+    {we:"ˈSraa-", fr:"Sacrifice", theme:"Spiritualité"},
+    {we:"ˈPepeˈ", fr:"Saint", theme:"Spiritualité"},
+    {we:"ˈˈƝɩɛn-", fr:"Culte", theme:"Spiritualité"},
+    {we:"Ghwlukwajhaai-", fr:"Prophète", theme:"Spiritualité"},
+    {we:"ˈˈƝɩnsʋn-", fr:"Rituel", theme:"Spiritualité"},
 
     {we:"ˈCreea", fr:"Écrire", theme:"Éducation"},
     {we:"Dhɛdhii zroa", fr:"Lire", theme:"Éducation"},
+    {we:"ˈCɩan", fr:"Apprendre", theme:"Éducation"},
+    {we:"ˈSɛɛ-", fr:"Livre", theme:"Éducation"},
+    {we:"Ɲʋndhɛtɔɔin-", fr:"Professeur", theme:"Éducation"},
+    {we:"-Klainjhu-", fr:"Élève", theme:"Éducation"},
+    {we:"-Klaingbu", fr:"Classe", theme:"Éducation"},
+    {we:"ˈCɩandhɛ-", fr:"Leçon", theme:"Éducation"},
+    {we:"Ɛzamɛn", fr:"Examen", theme:"Éducation"},
+    {we:"Jhibhonanˈ", fr:"Savoir", theme:"Éducation"},
 
     {we:"ˈSɔɔn", fr:"Deux", theme:"Nombres"},
     {we:"Taan", fr:"Trois", theme:"Nombres"},
     {we:"-Mm", fr:"Cinq", theme:"Nombres"},
     {we:"-Bue", fr:"Dix", theme:"Nombres"},
-
-    // Ajouts provenant de la liste fournie (sans dupliquer les mots déjà présents)
-
-    // Animaux additionnels
-    {we:"Bhli", fr:"Bœuf", theme:"Animaux"},
-    {we:"-Blaa-", fr:"Lion", theme:"Animaux"},
-    {we:"Sɔn", fr:"Escargot", theme:"Animaux"},
-
-    // Nature additionnels
-    {we:"ˈCʋ", fr:"Lune", theme:"Nature"},
-
-    // Famille additionnels
-    {we:"ˈBhae-", fr:"Parents maternels", theme:"Famille"},
-    {we:"Bhao", fr:"Compagnon / Jumeau", theme:"Famille"},
-
-    // Maison et vie quotidienne
-    {we:"ˈˈKwiglɔ-", fr:"Ville", theme:"Maison"},
-    {we:"Dhbhonʋngbu-", fr:"Bureau", theme:"Maison"},
-    {we:"Pɔɔtablʋ", fr:"Téléphone portable", theme:"Maison"},
-    {we:"-Zolɛ-", fr:"Bouteille", theme:"Maison"},
-    {we:"ˈˈˈMɩɔʋn", fr:"Aiguille", theme:"Maison"},
-    {we:"ˈCreetu-", fr:"Stylo", theme:"Maison"},
-    {we:"Biin-", fr:"Toilettes", theme:"Maison"},
-
-    // Nourriture et agriculture
-    {we:"Manglo", fr:"Mangue", theme:"Nourriture"},
-    {we:"ˈPɩlɛzaan-", fr:"Banane douce", theme:"Nourriture"},
-    {we:"ˈˈGa", fr:"Canne à sucre", theme:"Nourriture"},
-    {we:"-Vɛɲɛn", fr:"Papaye", theme:"Nourriture"},
-    {we:"-Gaeˈ", fr:"Palmier", theme:"Nourriture"},
-
-    // Éducation et langue
-    {we:"ˈCɩan", fr:"Apprendre", theme:"Éducation"},
-    {we:"ˈCreedhɩ-", fr:"Écriture", theme:"Éducation"},
-    {we:"ˈCɩandhɛ-", fr:"Chapitre / leçon", theme:"Éducation"},
-    {we:"Mɩɔʋn-", fr:"Langue", theme:"Éducation"},
-    {we:"Dhɩghwluizai-", fr:"Traducteur", theme:"Éducation"},
-    {we:"Dhɩghwluizaʋn", fr:"Traducteurs", theme:"Éducation"},
-    {we:"Ghwlui -za", fr:"Traduire", theme:"Éducation"},
-
-    // Spiritualité
-    {we:"Zoova", fr:"Jéhovah", theme:"Spiritualité"},
-    {we:"Zezi", fr:"Jésus", theme:"Spiritualité"},
-    {we:"Biiblʋ", fr:"Bible", theme:"Spiritualité"},
-    {we:"ˈBheɔglɔ-", fr:"Royaume", theme:"Spiritualité"},
-    {we:"-Bɔyaˈˈ -deɩn-", fr:"Paradis", theme:"Spiritualité"},
-    {we:"Dhbhoozii-", fr:"Ange", theme:"Spiritualité"},
-    {we:"-Ziisaɩn-", fr:"Démons", theme:"Spiritualité"},
-    {we:"Ziɔn", fr:"Esprit", theme:"Spiritualité"},
-
-    // Travail
-    {we:"Dhbho", fr:"Travail", theme:"Travail"},
-    {we:"Dhbhonʋanˈ", fr:"Travailler", theme:"Travail"},
-    {we:"Dhbhonʋin-", fr:"Travailleur", theme:"Travail"},
-    {we:"Dhbhonʋʋn-", fr:"Travailleurs", theme:"Travail"},
-    {we:"-Klainˈ", fr:"Formation", theme:"Travail"},
-
-    // Sentiments et qualités
-    {we:"ˈDhɔɛe", fr:"Bon / bonne", theme:"Sentiments"},
-    {we:"Kuɛ i", fr:"Courageux", theme:"Sentiments"},
-    {we:"-Kɔngɩnˈ", fr:"Pardon", theme:"Sentiments"},
-    {we:"-Kman", fr:"Aimer", theme:"Sentiments"},
-    {we:"-Faʋn-", fr:"Peur", theme:"Sentiments"},
-    {we:"Seaˈ", fr:"Fatigue", theme:"Sentiments"},
-    {we:"-Bɔyaˈˈ", fr:"Bonheur", theme:"Sentiments"},
-    {we:"ˈˈDhaidhɛ", fr:"Amitié", theme:"Sentiments"},
-
-    // Lieux et déplacements
-    {we:"ˈDhɔɔ", fr:"Marché", theme:"Lieux"},
-    {we:"-Dɔsrɔˈ -ŋmɛinˈˈ", fr:"Hôpital", theme:"Lieux"},
-    {we:"-Gazogbu-", fr:"Prison", theme:"Lieux"},
-    {we:"Gae", fr:"Gare", theme:"Lieux"},
-    {we:"Aelopɔɔ", fr:"Aéroport", theme:"Lieux"},
-    {we:"ˈˈKwighlu", fr:"Ville", theme:"Lieux"},
-    {we:"ˈBhlʋadhru-", fr:"Pays", theme:"Lieux"}
+    {we:"Dhueˈ", fr:"Un", theme:"Nombres"},
+    {we:"Ɲiɛn", fr:"Quatre", theme:"Nombres"},
+    {we:"-Mɛoˈˈ", fr:"Six", theme:"Nombres"},
+    {we:"-ˈˈMɛsɔnˈ", fr:"Sept", theme:"Nombres"},
+    {we:"-ˈˈMaan", fr:"Huit", theme:"Nombres"},
+    {we:"-ˈˈMɛɲɛn", fr:"Neuf", theme:"Nombres"}
 
 ];
-
-// Normalisation non destructive des formes Wɛ (we)
-// Règles appliquées :
-// - Trim des espaces en début/fin
-// - Réduction des espaces multiples en un seul
-// - Suppression des espaces autour des tirets internes et collapse des tirets multiples en un seul
-// - Conservation des tirets préfixes/suffixes (souvent morphologiques) tels qu'ils apparaissent en début/fin
-// - Ne touche pas aux signes de tons (ˈ, ˈˈ, etc.) — ils sont conservés tels quels
-
-function normalizeWe(s) {
-  if (!s || typeof s !== 'string') return s;
-  // Trim et collapse d'espaces
-  s = s.trim();
-  s = s.replace(/\s+/g, ' ');
-
-  // Conserver les tirets de début/fin
-  const leadingMatch = s.match(/^-+/);
-  const trailingMatch = s.match(/-+$/);
-  const leading = leadingMatch ? leadingMatch[0] : '';
-  const trailing = trailingMatch ? trailingMatch[0] : '';
-
-  // Middle sans les tirets de bord
-  let middle = s.replace(/^-+|-+$/g, '');
-
-  // Enlever espaces autour des tirets internes et regrouper plusieurs tirets en un seul
-  middle = middle.replace(/\s*-\s*/g, '-');
-  middle = middle.replace(/-+/g, '-');
-
-  // Retourner la forme normalisée en replaçant les tirets de bord
-  return leading + middle + trailing;
-}
-
-// Ajout d'un champ we_normalized pour chaque entrée sans modifier le champ original `we`.
-mots.forEach(entry => {
-  entry.we_normalized = normalizeWe(entry.we);
-});
-
-// Ajout non destructif d'un placeholder audio ("") pour toutes les entrées qui n'ont pas déjà de champ audio.
-// Cela évite de modifier les entrées qui possèdent déjà audio (par ex. audio:"audios/xxx.mp3").
-mots.forEach(entry => {
-  if (!Object.prototype.hasOwnProperty.call(entry, 'audio')) {
-    entry.audio = "";
-  }
-});
 
 export default mots;
