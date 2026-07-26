@@ -112,4 +112,40 @@ const mots = [
 
 ];
 
+// Normalisation non destructive des formes Wɛ (we)
+// Règles appliquées :
+// - Trim des espaces en début/fin
+// - Réduction des espaces multiples en un seul
+// - Suppression des espaces autour des tirets internes et collapse des tirets multiples en un seul
+// - Conservation des tirets préfixes/suffixes (souvent morphologiques) tels qu'ils apparaissent en début/fin
+// - Ne touche pas aux signes de tons (ˈ, ˈˈ, etc.) — ils sont conservés tels quels
+
+function normalizeWe(s) {
+  if (!s || typeof s !== 'string') return s;
+  // Trim et collapse d'espaces
+  s = s.trim();
+  s = s.replace(/\s+/g, ' ');
+
+  // Conserver les tirets de début/fin
+  const leadingMatch = s.match(/^-+/);
+  const trailingMatch = s.match(/-+$/);
+  const leading = leadingMatch ? leadingMatch[0] : '';
+  const trailing = trailingMatch ? trailingMatch[0] : '';
+
+  // Middle sans les tirets de bord
+  let middle = s.replace(/^-+|-+$/g, '');
+
+  // Enlever espaces autour des tirets internes et regrouper plusieurs tirets en un seul
+  middle = middle.replace(/\s*-\s*/g, '-');
+  middle = middle.replace(/-+/g, '-');
+
+  // Retourner la forme normalisée en replaçant les tirets de bord
+  return leading + middle + trailing;
+}
+
+// Ajout d'un champ we_normalized pour chaque entrée sans modifier le champ original `we`.
+mots.forEach(entry => {
+  entry.we_normalized = normalizeWe(entry.we);
+});
+
 export default mots;
