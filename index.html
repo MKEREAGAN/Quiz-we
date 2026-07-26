@@ -64,14 +64,19 @@
 
     <div id="score" role="status" aria-live="polite" aria-atomic="true"></div>
 
+    <!-- Charger d'abord les données (mots.js) -->
     <script src="mots.js"></script>
-<script src="script.js"></script>
+    <!-- Puis charger le script principal -->
+    <script src="script.js"></script>
 
-<script>
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('./service-worker.js');
-}
-</script>
+    <!-- Service Worker pour le mode hors ligne -->
+    <script>
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker.register('./service-worker.js').catch(err => {
+                console.log('Service Worker non disponible :', err);
+            });
+        }
+    </script>
 
 </body>
 </html>
