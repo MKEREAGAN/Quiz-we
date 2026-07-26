@@ -188,4 +188,12 @@ mots.forEach(entry => {
   entry.we_normalized = normalizeWe(entry.we);
 });
 
+// Ajout non destructif d'un placeholder audio ("") pour toutes les entrées qui n'ont pas déjà de champ audio.
+// Cela évite de modifier les entrées qui possèdent déjà audio (par ex. audio:"audios/xxx.mp3").
+mots.forEach(entry => {
+  if (!Object.prototype.hasOwnProperty.call(entry, 'audio')) {
+    entry.audio = "";
+  }
+});
+
 export default mots;
