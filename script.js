@@ -5,16 +5,36 @@ if (document.readyState === 'loading') {
     initializeQuiz();
 }
 
-function initializeQuiz() {
+function waitForMots(maxAttempts = 50) {
+    return new Promise((resolve, reject) => {
+        let attempts = 0;
+        const interval = setInterval(() => {
+            attempts++;
+            if (typeof mots !== 'undefined' && Array.isArray(mots) && mots.length > 0) {
+                clearInterval(interval);
+                console.log("✅ mots.js chargé avec " + mots.length + " mots");
+                resolve(mots);
+            } else if (attempts >= maxAttempts) {
+                clearInterval(interval);
+                console.error("❌ Timeout : mots.js n'a pas pu être chargé");
+                reject(new Error("mots.js non disponible"));
+            }
+        }, 100);
+    });
+}
+
+async function initializeQuiz() {
     const accueil = document.getElementById("accueil");
     const quiz = document.getElementById("quiz");
     const commencer = document.getElementById("commencer");
     const themeSelect = document.getElementById("theme");
 
-    // Vérifier que mots est chargé
-    if (typeof mots === 'undefined' || !Array.isArray(mots)) {
-        console.error("❌ Erreur : mots.js n'est pas chargé correctement");
-        alert("Erreur : Les données du quiz ne se sont pas chargées. Veuillez rafraîchir la page.");
+    try {
+        // Attendre que mots soit chargé
+        await waitForMots();
+    } catch (err) {
+        console.error("Erreur critique :", err);
+        alert("❌ Erreur : Les données du quiz ne se sont pas chargées.\nVeuillez :\n1. Rafraîchir la page (F5)\n2. Vider le cache du navigateur\n3. Redémarrer l'application");
         return;
     }
 
@@ -60,11 +80,23 @@ function initializeQuiz() {
         questions = [];
 
         motsSelectionnes.forEach(mot => {
+            // Vérifier que le mot a les propriétés requises
+            if (!mot.we || !mot.fr || !mot.theme) {
+                console.error("❌ Mot incomplet :", mot);
+                return;
+            }
+
             let mauvaisesReponses = mots
-                .filter(m => m.fr !== mot.fr)
+                .filter(m => m.fr && m.fr !== mot.fr)
                 .map(m => m.fr);
 
             mauvaisesReponses = melanger(mauvaisesReponses);
+
+            // S'assurer qu'on a au moins 3 mauvaises réponses
+            if (mauvaisesReponses.length < 3) {
+                console.warn("⚠️ Pas assez de mauvaises réponses pour le mot :", mot.we);
+                return;
+            }
 
             let choix = [
                 mot.fr,
@@ -77,12 +109,17 @@ function initializeQuiz() {
 
             questions.push({
                 motWe: mot.we,
-                audio: mot.audio,
+                audio: mot.audio || null,
                 question: "Que signifie " + mot.we + " ?",
                 choix: choix,
                 bonne: choix.indexOf(mot.fr)
             });
         });
+
+        if (questions.length === 0) {
+            alert("❌ Aucune question valide trouvée pour ce thème.");
+            return;
+        }
 
         questions = melanger(questions);
 
@@ -107,8 +144,16 @@ function initializeQuiz() {
 
         let q = questions[index];
 
-        motCourant = q.motWe;
-        audioCourant = q.audio;
+        // Vérification de sécurité
+        if (!q || !q.question || !q.choix || q.choix.length < 4) {
+            console.error("❌ Question invalide :", q);
+            index++;
+            afficherQuestion();
+            return;
+        }
+
+        motCourant = q.motWe || "???";
+        audioCourant = q.audio || null;
 
         let pourcentage = ((index + 1) / questions.length) * 100;
 
@@ -120,7 +165,7 @@ function initializeQuiz() {
         message.textContent = "";
 
         boutons.forEach((btn, i) => {
-            btn.textContent = q.choix[i];
+            btn.textContent = q.choix[i] || "???";
             btn.disabled = false;
             btn.style.backgroundColor = "";
             btn.onclick = function () {
