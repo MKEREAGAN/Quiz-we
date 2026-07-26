@@ -212,12 +212,24 @@ async function initializeQuiz() {
 
     parler.addEventListener("click", function () {
         if (audioCourant) {
-            let audio = new Audio(audioCourant);
+            // Construire l'URL complète du fichier audio
+            let audioUrl = audioCourant;
+            
+            // Si le chemin est relatif (commence par "audios/"), construire l'URL GitHub raw
+            if (audioCourant.startsWith('audios/')) {
+                audioUrl = 'https://raw.githubusercontent.com/MKEREAGAN/Quiz-we/main/' + audioCourant;
+            }
+            
+            console.log("🔊 Lecture audio :", audioUrl);
+            
+            let audio = new Audio(audioUrl);
             audio.play().catch(err => {
-                console.error("Erreur lors de la lecture audio :", err);
+                console.error("❌ Erreur lors de la lecture audio :", err);
+                console.log("📢 Utilisation de la synthèse vocale en fallback");
                 utiliserSynthese();
             });
         } else {
+            console.log("❌ Pas d'audio pour ce mot, utilisation de la synthèse vocale");
             utiliserSynthese();
         }
     });
