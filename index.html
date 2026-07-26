@@ -64,10 +64,12 @@
 
     <div id="score" role="status" aria-live="polite" aria-atomic="true"></div>
 
-    <!-- Charger d'abord les données (mots.js) -->
-    <script src="mots.js"></script>
-    <!-- Puis charger le script principal -->
-    <script src="script.js"></script>
+    <!-- Charger les scripts en tant que modules ES6 -->
+    <script type="module">
+        import mots from './mots.js';
+        window.mots = mots; // Rendre les mots accessibles globalement
+        import('./script.js'); // Puis charger le script principal
+    </script>
 
     <!-- Service Worker pour le mode hors ligne -->
     <script>
