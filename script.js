@@ -45,6 +45,7 @@ async function initializeQuiz() {
     let questions = [];
     let motCourant = "";
     let audioCourant = "";
+    let audioEnCours = null; // Pour stocker l'instance audio actuelle
 
     const question = document.getElementById("question");
     const boutons = document.querySelectorAll(".reponse");
@@ -172,9 +173,20 @@ async function initializeQuiz() {
                 repondre(i, q.bonne);
             };
         });
+
+        // 🎵 AUTO-PLAY DE L'AUDIO AU CHARGEMENT DE LA QUESTION
+        setTimeout(() => {
+            lireAudio();
+        }, 300); // Petit délai pour que l'UI se mette à jour
     }
 
     function repondre(indexReponse, bonneReponse) {
+        // Arrêter l'audio en cours avant de désactiver les boutons
+        if (audioEnCours) {
+            audioEnCours.pause();
+            audioEnCours = null;
+        }
+
         boutons.forEach(b => b.disabled = true);
 
         if (indexReponse === bonneReponse) {
@@ -196,6 +208,12 @@ async function initializeQuiz() {
     }
 
     function afficherResultat() {
+        // Arrêter l'audio en cours
+        if (audioEnCours) {
+            audioEnCours.pause();
+            audioEnCours = null;
+        }
+
         let pourcentage = Math.round((score / questions.length) * 100);
 
         quiz.innerHTML = `
@@ -210,7 +228,8 @@ async function initializeQuiz() {
         `;
     }
 
-    parler.addEventListener("click", function () {
+    // Fonction principale pour lire l'audio
+    function lireAudio() {
         if (audioCourant) {
             // Construire l'URL complète du fichier audio
             let audioUrl = audioCourant;
@@ -220,10 +239,10 @@ async function initializeQuiz() {
                 audioUrl = 'https://raw.githubusercontent.com/MKEREAGAN/Quiz-we/main/' + audioCourant;
             }
             
-            console.log("🔊 Lecture audio :", audioUrl);
+            console.log("🔊 Lecture audio auto :", audioUrl);
             
-            let audio = new Audio(audioUrl);
-            audio.play().catch(err => {
+            audioEnCours = new Audio(audioUrl);
+            audioEnCours.play().catch(err => {
                 console.error("❌ Erreur lors de la lecture audio :", err);
                 console.log("📢 Utilisation de la synthèse vocale en fallback");
                 utiliserSynthese();
@@ -232,6 +251,16 @@ async function initializeQuiz() {
             console.log("❌ Pas d'audio pour ce mot, utilisation de la synthèse vocale");
             utiliserSynthese();
         }
+    }
+
+    // Bouton "Prononcer" pour rejouer l'audio manuellement
+    parler.addEventListener("click", function () {
+        // Arrêter l'audio en cours s'il y en a un
+        if (audioEnCours) {
+            audioEnCours.pause();
+            audioEnCours = null;
+        }
+        lireAudio();
     });
 
     function utiliserSynthese() {
